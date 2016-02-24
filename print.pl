@@ -32,15 +32,18 @@ print_tree :-
 
 print_tree(Lang) :-
   tree(Tree),
-  dcg_with_output_to(current_output, dcg_tree(print_node(Lang), Tree)).
+  dcg_with_output_to(current_output,
+    dcg_tree(Tree, [node_writer(print_node(Lang))])
+  ).
 
 
-%! print_node(+Lang, +Node, +InvPath, +IsLeaf)// is det.
+%! print_node(+Lang, +InvPath, +IsLeaf)// is det.
 
-print_node(Lang, Node, InvPath, _) -->
+print_node(Lang, [Node|InvPath], _) -->
   {
     reverse([Node|InvPath], [_|Path]),
     (proposition(Lang, Path, S) -> true ; S = "∅"),
     string_truncate(S, 40, TruncatedS)
   },
+  dcg_tree:indent_path(InvPath),
   atom(Node), " \t", str(TruncatedS).
