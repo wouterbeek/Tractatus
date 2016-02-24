@@ -1,0 +1,46 @@
+This is a very simple exercise in computational philosophy.  This study shows that computational means may be used to investigate some tangential aspects of philosophical works, which have traditionally been published without computational affordances.  The latter implies that computational philosophy is generally not possible before significant cleaning operations have been performed on the data.
+* Hypotheses
+** The Tractatus tree structure is serialized in a depth-first fashion in the published works.
+** According to the motivated specification of the Tractatus tree structure, some nodes are not serialized in the published works.
+** The root or empty path is meaningfully missing in the Tractatus tree structure.
+** When usign ‘9’ Wittgenstein might have considered a different tree structure.
+* Index
+A string identifying a Tractatus proposition as it appears in the printed words.
+** Dot
+The dot appears in all but the layer-1 indices.
+The dot does not have any function.
+** Star
+The first index has a star suffix, i.e., ‘1*’, which refers to a footnote explaining the meaning of the indices.
+** Grammar
+*** 1*
+*** [2-7]
+*** [1-6].([0-9])+
+* Path
+A sequence of decimal digits some of which denote a Tractatus proposition.
+* Proposition
+A node in the Tractatus tree structure.
+** Synonym
+Statement
+** Hidden proposition
+A node in the Tractatus tree structure that does not appear in the printed works.
+* Versions
+** Printed
+*** Original German
+/Logisch-Philosophische Abhandlung/, Wilhelm Ostwald (Ed.), Annalen der Naturphilosophie, 14 (1921).
+*** Ogden/Ramsey
+C. K. Ogden (1922), prepared with assistance from G. E. Moore, F. P. Ramsey, and Wittgenstein. Routledge & Kegan Paul, parallel edition including the German text on the facing page to the English text: 1981 printing: ISBN 0-415-05186-X, 1999 Dover reprint
+*** Pears/McGuinness
+David Pears and Brian McGuinness (1961), Routledge, hardcover: ISBN 0-7100-3004-5, 1974 paperback: ISBN 0-415-02825-6, 2001 hardcover: ISBN 0-415-25562-7, 2001 paperback: ISBN 0-415-25408-6
+*** /Werkausgabe/
+Vol. 1 includes the /Tractatus/.  Frankfurt am Main: Suhrkamp Verlag.
+** Online
+The quality of the onlie published versions is quite low.  Either propositions are missing (see table) or the online data cannot be used computationally.
+*** Umass.edu
+Contains German, and Ogden and Pears & McGuinness translations side-by-side-by-side.
+*** Gutenberg.org (Ogden translation)
+TractatusLogico-Phlosophicus (As a hierarchically nested document)
+    Philosurfical.open.ac.uk Research software tool aimed at facilitating the study of the Tractatus. The text is available in German and in both English translations (Ogden & Pears-McGuinness)
+    Graphical tabs-centered version of Tractatus Logico-Philosophicus (based on Pears & McGuinness translation)
+    LibriVox audiobook version of Tractatus Logico-Philosophicus (Ogden translation) (Version 1)
+    LibriVox audiobook version of Tractatus Logico-Philosophicus (Ogden translation) (Version 2)
+    Tree-like version of Tractatus Logico-Philosophicus (Ogden translation)
