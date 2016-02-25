@@ -3,10 +3,13 @@
   [
     explicit_path/1, % ?Path
     implicit_path/1, % ?Path
+    lang/1,          % ?LTag
     tree/1           % -Tree
   ]
 ).
-:- reexport(parse).
+:- reexport(parse, [
+     proposition/3   % ?LTag, ?Path, % ?Content
+   ]).
 
 :- use_module(library(lists)).
 :- use_module(library(pairs)).
@@ -21,7 +24,9 @@
 %! explicit_path(-Path) is multi.
 
 explicit_path(Path) :-
-  proposition(en, Path, _).
+  % The language we choose here is arbitrary.
+  once(lang(LTag)),
+  proposition(LTag, Path, _).
 
 
 
@@ -33,6 +38,14 @@ implicit_path([∅|ImplicitPath]) :-
     explicit_path(ExplicitPath),
     prefix(ImplicitPath, ExplicitPath)
   )).
+
+
+
+%! lang(+LTag) is semidet.
+%! lang(-LTag) is multi.
+
+lang(LTag) :-
+  distinct(LTag, proposition(LTag, _, _)).
 
 
 

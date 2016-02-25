@@ -2,7 +2,7 @@
   parse,
   [
     parse/0,
-    proposition/3 % ?Lang, ?Path, % ?Content
+    proposition/3 % ?LTag, ?Path, % ?Content
   ]
 ).
 
@@ -27,15 +27,15 @@ tractatus -->
   ..., propositions(de),
   ..., eos, !.
   
-propositions(Lang) -->
-  "\\Proposition", lang(Lang), "{", index(Path), "}\r\n{",
+propositions(LTag) -->
+  "\\Proposition", lang(LTag), "{", index(Path), "}\r\n{",
   ...(Cs), eop(Last),
   {
-    store_proposition(Lang, Path, Cs),
+    store_proposition(LTag, Path, Cs),
     string_codes(S, Cs),
     debug(tractatus(parse), "Assert proposition ~w ~w", [Path,S])
   },
-  ({Last == true} -> "" ; propositions(Lang)).
+  ({Last == true} -> "" ; propositions(LTag)).
 
 lang(en) --> "E".
 lang(de) --> "G".
@@ -57,11 +57,12 @@ latex_eol --> dos_eol.
 
 dos_eol --> "\r\n".
 
-store_proposition(Lang, Path, Cs1) :-
+store_proposition(LTag, Path, Cs1) :-
   phrase(normalize, Cs1, Cs2),
   string_codes(S, Cs2),
-  assert_proposition(Lang, Path, S).
+  assert_proposition(LTag, Path, S).
 
+% Normalization removes line comments and (DOS) end of line sequenes.
 normalize --> eos, !.
 normalize, " " --> latex_eol, !, normalize.
 normalize, [C] --> [C], normalize.
