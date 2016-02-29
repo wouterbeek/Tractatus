@@ -1,22 +1,26 @@
 :- module(
-  parse,
+  tractatus_parse,
   [
     parse/0,
     proposition/3 % ?LTag, ?Path, % ?Content
   ]
 ).
 
-:- use_module(library(apply)).
-:- use_module(library(char_ext)).
-:- use_module(library(dcg/basics)).
+/** <module> Tracatatus: Parse
+
+Parses a TeX file containing a German and an English version of the Tracatus.
+Both versions are store as proposition/3 compound terms.
+
+@author Wouter Beek
+@version 2016/02
+*/
+
 :- use_module(library(dcg/dcg_content)).
+:- use_module(library(dcg/dcg_ext)).
 :- use_module(library(debug)).
-:- use_module(library(persistency)).
 :- use_module(library(pure_input)).
 
-:- initialization(db_attach('tractatus.db', [sync(flush)])).
-
-:- persistent proposition(oneof([de,en]), list(between(0,9)), list).
+:- use_module(tractatus_api).
 
 parse :-
   absolute_file_name('source/5740-t/5740-t.tex', File, [access(read)]),
@@ -40,10 +44,9 @@ propositions(LTag) -->
 lang(en) --> "E".
 lang(de) --> "G".
 
-index(Path) -->
+index([H|T]) -->
   digit(H),
-  ("." -> digits(T) ; {T = []}),
-  {maplist(char_digit, [H|T], Path)}.
+  ("." -> '*'(digit, T) ; {T = []}).
 
 eop(Last) -->
   "}", latex_eol,
@@ -57,12 +60,13 @@ latex_eol --> dos_eol.
 
 dos_eol --> "\r\n".
 
-store_proposition(LTag, Path, Cs1) :-
-  phrase(normalize, Cs1, Cs2),
-  string_codes(S, Cs2),
-  assert_proposition(LTag, Path, S).
-
 % Normalization removes line comments and (DOS) end of line sequenes.
 normalize --> eos, !.
 normalize, " " --> latex_eol, !, normalize.
+normalize --> "\\-", !, normalize.
 normalize, [C] --> [C], normalize.
+
+store_proposition(LTag, Path, Cs1) :-
+  phrase(normalize, Cs1, Cs2),
+  string_codes(S, Cs2),
+  tractatus_api:assert_proposition(LTag, Path, S).
