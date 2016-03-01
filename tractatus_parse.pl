@@ -15,7 +15,6 @@ Both versions are store as proposition/3 compound terms.
 @version 2016/02
 */
 
-:- use_module(library(dcg/dcg_content)).
 :- use_module(library(dcg/dcg_ext)).
 :- use_module(library(debug)).
 :- use_module(library(pure_input)).

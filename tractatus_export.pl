@@ -18,9 +18,7 @@ Currently supported:
 @version 2016/02
 */
 
-:- use_module(library(dcg/dcg_content)).
 :- use_module(library(dcg/dcg_ext)).
-:- use_module(library(dcg/dcg_phrase)).
 :- use_module(library(string_ext)).
 :- use_module(library(tree/s_tree)).
 
