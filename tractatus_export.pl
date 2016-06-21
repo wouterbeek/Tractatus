@@ -69,7 +69,7 @@ org_writer(LTag, InvPath, _) -->
     (proposition(LTag, Path, S) -> true ; S = "∅"),
     length(InvPath, Len)
   },
-  '#'(Len, star), " ",  index(Path), " ", str(S).
+  #(Len, star), " ",  index(Path), " ", str(S).
 
 
 %! index(+Path:list(between(0,9)))// is det.
